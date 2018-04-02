@@ -66,7 +66,7 @@ main(){
 					printf("Masukan Kota Untuk Dicari : ");
 					fflush(stdin);gets(CariInfo);
 					idkota=1;
-					while(idkota<=MAX_ELM){
+					while(idkota<MAX_ELM){
 						if(strcmp(kota[idkota].info,CariInfo)==0) {
 							printf("\tNama Kota : %s\n",kota[idkota].info);
 							Tampil_Mhs(kota[idkota].next);
@@ -80,7 +80,7 @@ main(){
 					fflush(stdin);gets(CariInfo);
 					idkota=1;
 					count=0;
-					while(idkota<=MAX_ELM){
+					while(idkota<MAX_ELM){
 						String=kota[idkota].next;
 						while(String!=NULL){
 							if(CekString(String->info,CariInfo)) {
