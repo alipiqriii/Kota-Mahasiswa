@@ -9,7 +9,7 @@ boolean isEmpty(address p){
 }
 
 void Create_Node (address *p){
-	*p = (address) malloc(sizeof(dt_kota));
+	*p = (address) malloc(sizeof(dt_mhs));
 	if(isEmpty(*p)) printf("Alokasi Gagal");	
 }
 
@@ -36,7 +36,7 @@ void Isi_Node(address *p,infotype nilai){
 void Tampil_List (address p){
 	int count=1;
    	while(!isEmpty(p)){
-   	printf("%d. %s",count,info(p));
+   	printf("\t[%d]. %s",count,info(p));
 	p = next(p);
 	count++;
    }

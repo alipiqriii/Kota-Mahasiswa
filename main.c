@@ -3,23 +3,22 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
-#define MAX_ELM 3
+#include <ctype.h>
+#define MAX_ELM 4
 main(){
 	dt_kota kota[MAX_ELM];
 	dt_mhs mhs;
-	int pilihan;
+	int pilihan,pilihan_search;
 	address p;
 	infotype Del_Nama;
 	int idkota;
 	int i;
 	
-	//p untuk kota
-	//q untuk mhs
-	
 	strcpy(kota[1].info,"Bandung");
 	strcpy(kota[2].info,"Jakarta");
+	strcpy(kota[3].info,"Garut");
 	
-	kota[1].next = kota[2].next = Nil;
+	kota[1].next = kota[2].next = kota[3].next = Nil;
 	
 
 	while(1){
@@ -29,7 +28,6 @@ main(){
 		printf("2. Delete Data\n");
 		printf("3. Tampil Data\n");
 		printf("4. Search Data\n");
-		printf("5. Sort Data\n");
 		printf("===========================================================\n");
 		printf("Pilihan : ");scanf("%d",&pilihan);
 		switch(pilihan){
@@ -54,13 +52,53 @@ main(){
 				system("pause");
 				break;
 			case 4 :
-				address try_search;
-				fflush(stdin);
-				fgets(Del_Nama,MAX_WORD,stdin);
-				printf("%s ",Del_Nama);
-				try_search = Search(kota[1].next,Del_Nama);
-				printf("Search : %s ",try_search->info);
-				getchar();
+				
+				printf("1. Search Kota\n2. Search Nama\n\nPilihan : ");
+				scanf("%d",&pilihan_search);
+				int count;
+				address String;
+				infotype CariInfo;
+				
+				switch(pilihan_search){
+					case 1 :
+					printf("===================================\nSearch Kota \n===================================\n");
+					printf("Uppercase Lowercase Berpengaruh\n");
+					printf("Masukan Kota Untuk Dicari : ");
+					fflush(stdin);gets(CariInfo);
+					idkota=1;
+					while(idkota<=MAX_ELM){
+						if(strcmp(kota[idkota].info,CariInfo)==0) {
+							printf("\tNama Kota : %s\n",kota[idkota].info);
+							Tampil_Mhs(kota[idkota].next);
+						}
+						idkota++;
+					}
+					break;
+					case 2:
+					printf("===================================\nSearch Nama \n===================================\n");
+					printf("Masukan Nama Untuk Dicari : ");
+					fflush(stdin);gets(CariInfo);
+					idkota=1;
+					count=0;
+					while(idkota<=MAX_ELM){
+						String=kota[idkota].next;
+						while(String!=NULL){
+							if(CekString(String->info,CariInfo)) {
+								count++;
+								printf("\t[%d] Kota : %s \t Nama : %s",count,kota[idkota].info,String->info);	
+							}  
+							String = String->next;
+						}
+						idkota = idkota+1;
+					}
+					if (count==0) printf("\nData Tidak Ditemukan\n");
+					break;
+					default : break;
+				}
+				system("pause");
+				break;
+				default : break;
+				
 		}
 	}
 }
